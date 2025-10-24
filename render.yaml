@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: jobfind-api
+    env: docker
+    plan: starter
+    startCommand: "gunicorn app:app -w 4 -b 0.0.0.0:10000"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: CELERY_BROKER_URL
+        sync: false
+      - key: CELERY_RESULT_BACKEND
+        sync: false
+
+  - type: worker
+    name: jobfind-worker
+    env: docker
+    plan: starter
+    startCommand: "celery -A celery_worker.celery_app worker --loglevel=info --concurrency=4"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: CELERY_BROKER_URL
+        sync: false
+      - key: CELERY_RESULT_BACKEND
+        sync: false
