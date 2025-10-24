@@ -1,0 +1,10 @@
+# worker-only / heavy libs
+selenium>=4.33.0,<5
+playwright==1.54.0
+numpy==1.26.3
+pandas==2.3.0
+scipy==1.16.1
+scikit-learn==1.7.1
+openai==1.90.0
+mistralai==1.8.1
+# plus any other heavy packages your scrapers need

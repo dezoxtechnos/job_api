@@ -1,0 +1,11 @@
+Flask==3.1.1
+gunicorn==23.0.0
+psycopg2-binary==2.9.10
+SQLAlchemy==2.0.41
+flask-cors
+redis==6.2.0
+celery==5.5.3
+requests==2.32.3
+beautifulsoup4==4.13.4
+python-dotenv==1.1.0
+# add any small libs your API code directly imports (not heavy data science/browser libs)
