@@ -5,6 +5,7 @@ Explicit sequences are used for PKs to avoid "NULL id" insert errors
 when tables were created previously without SERIAL/IDENTITY defaults.
 """
 import uuid
+import os
 from sqlalchemy import (
     create_engine,
     Column,
@@ -223,4 +224,8 @@ class JobResult(Base):
 def init_db() -> None:
     """Create sequences & tables if missing. Safe no-op for existing objects."""
     # Create all sequences implicitly when create_all runs because of Sequence objects on columns
-    Base.metadata.create_all(bind=engine)
+    if os.getenv("ENABLE_SCHEMA_CREATION", "0") == "1":
+        Base.metadata.create_all(bind=engine)
+    else:
+        # do not create/modify tables in DB
+        pass
