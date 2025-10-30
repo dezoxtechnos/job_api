@@ -12,6 +12,7 @@ import hashlib
 import logging
 import redis
 import unicodedata
+import os
 
 from datetime import datetime, timedelta
 from urllib.parse import urlparse, urlunparse
@@ -46,7 +47,7 @@ log = logging.getLogger("tasks")
 logging.basicConfig(level=logging.INFO)
 
 # ---------- concurrency / redis ----------
-_redis = redis.Redis.from_url("redis://localhost:6379/0")
+_redis = redis.Redis.from_url(os.getenv("REDIS_URL", ""))
 DISPATCH_LOCK_KEY = "dispatch_lock_v1"
 DISPATCH_LOCK_TTL = 20  # seconds
 
